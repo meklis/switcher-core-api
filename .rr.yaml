@@ -1,0 +1,45 @@
+server:
+  command: "php worker.php"
+
+rpc:
+  listen: tcp://127.0.0.1:6001
+
+metrics:
+  address: 0.0.0.0:2112
+  collect:
+    calling_devices:
+      type: counter
+      help: "Information about calling devices"
+      labels: ["ip", "module"]
+http:
+  address: 0.0.0.0:8082
+  pool:
+    num_workers: 3
+    supervisor:
+      # watch_tick defines how often to check the state of the workers (seconds)
+      watch_tick: 5s
+      # ttl defines maximum time worker is allowed to live (seconds)
+      ttl: 0
+      # idle_ttl defines maximum duration worker can spend in idle mode after first use. Disabled when 0 (seconds)
+      idle_ttl: 600s
+      # exec_ttl defines maximum lifetime per job (seconds)
+      exec_ttl: 300s
+      # max_worker_memory limits memory usage per worker (MB)
+      max_worker_memory: 100
+reload:
+  # sync interval
+  interval: 1s
+  # global patterns to sync
+  patterns: [ ".php" ]
+  # list of included for sync services
+  services:
+    http:
+      # recursive search for file patterns to add
+      recursive: true
+      # ignored folders
+      ignore: [ "vendor" ]
+      # service specific file pattens to sync
+      patterns: [ ".php", ".go", ".md" ]
+      # directories to sync. If recursive is set to true,
+      # recursive sync will be applied only to the directories in `dirs` section
+      dirs: [ "." ]

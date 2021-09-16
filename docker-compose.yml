@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  switcher-core-api:
+    container_name: switcher-core-api
+    build:
+      context: .
+    ports:
+      - 8082:8080
+    volumes:
+      - ./:/app
