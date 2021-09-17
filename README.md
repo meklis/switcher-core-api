@@ -1,5 +1,6 @@
 # Switcher-Core-Api 
-RestAPI for library [switcher-core](https://github.com/meklis/switcher-core)  based on roadrunner.    
+RestAPI for library [switcher-core](https://github.com/meklis/switcher-core)  based on roadrunner.   
+## List of supported devices [here](https://github.com/meklis/switcher-core/blob/master/docs/DEVICES.md)     
 
 ## Features  
 * Automate detect device vendor and model
