@@ -36,6 +36,7 @@ class Call extends Action
     {
         $request = Request::init($this->getFormData());
         $error = null;
+        $time_start = microtime(true);
         try {
             $data = $this->coreConnector->init(
                 $request->getDevice()
@@ -46,11 +47,17 @@ class Call extends Action
         } catch (\Throwable $e) {
             $error = $e;
         }
-//
-//        $this->metrics->add('calling_devices', 1, [
-//            'ip' => (string)$request->getDevice()->getIp(),
-//            'module' =>  (string)$request->getModule(),
-//        ]);
+
+        $this->metrics->add('calling_devices_counter', 1, [
+             (string)$request->getDevice()->getIp(),
+             (string)$request->getModule(),
+             (string)($error === null ? 'success' : 'failed')
+        ]);
+        $this->metrics->add('calling_devices_duration', (microtime(true) - $time_start), [
+            (string)$request->getDevice()->getIp(),
+            (string)$request->getModule(),
+            (string)($error === null ? 'success' : 'failed')
+        ]);
         if($error) {
             throw $error;
         }

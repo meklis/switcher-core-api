@@ -28,6 +28,18 @@ class DetectModel extends Action
     protected function action(): Response
     {
         $dt = $this->getFormData();
+        if(!isset($dt['ip'])) {
+            throw new HttpBadRequestException($this->request, "IP is required");
+        }
+        if(!isset($dt['community'])) {
+            throw new HttpBadRequestException($this->request, "Community is required");
+        }
+        if(!isset($dt['login'])) {
+            $dt['login'] = '';
+        }
+        if(!isset($dt['password'])) {
+            $dt['password'] = '';
+        }
         $device = Device::init(
             $dt['ip'],
             $dt['community'],

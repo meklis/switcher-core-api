@@ -28,9 +28,17 @@ class ModelByKey extends Action
 
     protected function action(): Response
     {
-
+        $model = $this->collector->getModelByKey($this->request->getAttribute('key'));
         return  $this->respondWithData(
-           $this->collector->getModelByKey($this->request->getAttribute('key'))
+           [
+               'name' => $model->getName(),
+               'key' => $model->getKey(),
+               'ports' => $model->getPorts(),
+               'extra' => $model->getExtra(),
+               'detect' => $model->getDetect(),
+               'device_type' => $model->getDeviceType(),
+               'modules' => $model->getModulesList(),
+           ]
         );
     }
 }

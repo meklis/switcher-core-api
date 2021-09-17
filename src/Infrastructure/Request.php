@@ -74,6 +74,13 @@ class Request
     public static function init($data)
     {
         $request = new self();
+        if(!isset($data['device']['login'])) {
+            $data['device']['login'] = '';
+            $data['device']['password'] = '';
+        }
+        if(!isset($data['device']['password'])) {
+            $data['device']['password'] = '';
+        }
         if (!isset($data['module'])) {
             throw new InvalidArgumentException("Module is required");
         } else {

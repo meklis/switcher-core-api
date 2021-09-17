@@ -63,6 +63,7 @@ $app->addRoutingMiddleware();
 // Add Error Middleware
 $errorMiddleware = $app->addErrorMiddleware($displayErrorDetails, $logError, $logErrorDetails);
 $errorMiddleware->setDefaultErrorHandler($errorHandler);
+
 while ($req = $psrWorker->waitRequest()) {
     try {
         $response = $app->handle($req);

@@ -40,6 +40,7 @@ class CallBatch extends Action
             $request = Request::init($d);
             $response = null;
             $error = null;
+            $time_start = microtime(true);
             try {
                 $response = $this->coreConnector->getOrInit(
                     $request->getDevice()
@@ -56,11 +57,16 @@ class CallBatch extends Action
                     'trace' => $e->getTraceAsString(),
                 ];
             }
-//            $this->metrics->add('calling_devices', 1, [
-//                'ip' => $request->getDevice()->getIp(),
-//                'module' => $request->getModule(),
-//                'status' => $error !== null ? 'failed' : 'success'
-//            ]);
+            $this->metrics->add('calling_devices_counter', 1, [
+                (string)$request->getDevice()->getIp(),
+                (string)$request->getModule(),
+                (string)($error === null ? 'success' : 'failed')
+            ]);
+            $this->metrics->add('calling_devices_duration', (microtime(true) - $time_start), [
+                (string)$request->getDevice()->getIp(),
+                (string)$request->getModule(),
+                (string)($error === null ? 'success' : 'failed')
+            ]);
             $responses[] = [
               'error' => $error,
               'request' => $request->getAsArray(),

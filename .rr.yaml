@@ -7,19 +7,23 @@ rpc:
 metrics:
   address: 0.0.0.0:2112
   collect:
-    calling_devices:
+    calling_devices_counter:
       type: counter
       help: "Information about calling devices"
-      labels: ["ip", "module"]
+      labels: ["ip", "module", "status"]
+    calling_devices_duration:
+      type: counter
+      help: "Spent time from device calling"
+      labels: ["ip", "module", "status"]
 http:
-  address: 0.0.0.0:8082
+  address: 0.0.0.0:5990
   pool:
-    num_workers: 3
+    num_workers: 30
     supervisor:
       # watch_tick defines how often to check the state of the workers (seconds)
       watch_tick: 5s
       # ttl defines maximum time worker is allowed to live (seconds)
-      ttl: 0
+      ttl: 1800s
       # idle_ttl defines maximum duration worker can spend in idle mode after first use. Disabled when 0 (seconds)
       idle_ttl: 600s
       # exec_ttl defines maximum lifetime per job (seconds)
