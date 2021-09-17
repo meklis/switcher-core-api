@@ -44,7 +44,8 @@ You can run server use command `roadrunner serve -c </path/to/.rr.yaml>`
 ### See examples of API in [postman documenter](https://documenter.getpostman.com/view/6612340/U16qJNqV)
 
 ### Prometheus metrics
-### http://127.0.0.1:2112/metrics
+URL: **http://127.0.0.1:2112/metrics**   
+    
 Custom metrics: 
 ```
 # HELP calling_devices_counter Information about calling devices
