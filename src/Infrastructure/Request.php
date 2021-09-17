@@ -95,7 +95,7 @@ class Request
                 $data['device']['login'],
                 $data['device']['password']
             );
-            if (isset($data['device']['meta'])) {
+            if (isset($data['device']['meta']) && $data['device']['meta']) {
                 $params = $data['device']['meta'];
                 $device->telnetPort = $params['telnet_port'];
                 $device->telnetTimeout = $params['telnet_timeout_sec'];
