@@ -42,6 +42,9 @@ You can run server use command `roadrunner serve -c </path/to/.rr.yaml>`
 **Recomenation: [configure running server as deamon](https://roadrunner.dev/docs/beep-beep-systemd)** 
 
 ## Usage   
+### Client libraries  
+* PHP - [https://github.com/meklis/switcher-core-client](https://github.com/meklis/switcher-core-client)     
+
 ### See examples of API in [postman documenter](https://documenter.getpostman.com/view/6612340/U16qJNqV)
 
 ### Prometheus metrics
