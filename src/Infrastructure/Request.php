@@ -2,8 +2,6 @@
 
 namespace App\Infrastructure;
 
-use http\Exception\InvalidArgumentException;
-use Slim\Exception\HttpBadRequestException;
 use SwitcherCore\Switcher\Device;
 
 class Request
@@ -82,12 +80,12 @@ class Request
             $data['device']['password'] = '';
         }
         if (!isset($data['module'])) {
-            throw new InvalidArgumentException("Module is required");
+            throw new \InvalidArgumentException("Module is required");
         } else {
             $request->setModule($data['module']);
         }
         if (!isset($data['device'])) {
-            throw new InvalidArgumentException("Device is required");
+            throw new \InvalidArgumentException("Device is required");
         } else {
             $device = Device::init(
                 $data['device']['ip'],
