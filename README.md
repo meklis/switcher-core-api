@@ -1,5 +1,6 @@
 # Switcher-Core-Api 
-RestAPI for library [switcher-core](https://github.com/meklis/switcher-core)  based on roadrunner.    
+RestAPI for library [switcher-core](https://github.com/meklis/switcher-core)  based on roadrunner.   
+## List of supported devices [here](https://github.com/meklis/switcher-core/blob/master/docs/DEVICES.md)     
 
 ## Features  
 * Automate detect device vendor and model
@@ -41,6 +42,9 @@ You can run server use command `roadrunner serve -c </path/to/.rr.yaml>`
 **Recomenation: [configure running server as deamon](https://roadrunner.dev/docs/beep-beep-systemd)** 
 
 ## Usage   
+### Client libraries  
+* PHP - [https://github.com/meklis/switcher-core-client](https://github.com/meklis/switcher-core-client)     
+
 ### See examples of API in [postman documenter](https://documenter.getpostman.com/view/6612340/U16qJNqV)
 
 ### Prometheus metrics
