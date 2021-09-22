@@ -17,8 +17,8 @@ return function (ContainerBuilder $containerBuilder) {
                 'logError'            => false,
                 'logErrorDetails'     => false,
                 'logger' => [
-                    'name' => 'slim-app',
-                    'path' => __DIR__ . '/../logs/app.log',
+                    'name' => 'sw-core-api',
+                    'path' => 'php://stderr', //__DIR__ . '/../logs/app.log',
                     'level' => Logger::DEBUG,
                 ],
             ]);
