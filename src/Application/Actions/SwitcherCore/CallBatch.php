@@ -3,6 +3,7 @@
 namespace App\Application\Actions\SwitcherCore;
 
 use App\Application\Actions\Action;
+use App\Application\Settings\SettingsInterface;
 use App\Domain\DomainException\DomainRecordNotFoundException;
 use App\Infrastructure\Request;
 use http\Exception\InvalidArgumentException;
@@ -25,8 +26,14 @@ class CallBatch extends Action
      */
     protected $metrics;
 
-    function __construct(Metrics $metrics, CoreConnector $core, LoggerInterface $logger)
+    /**
+     * @var SettingsInterface
+     */
+    protected $settings;
+
+    function __construct(SettingsInterface $settings, Metrics $metrics, CoreConnector $core, LoggerInterface $logger)
     {
+        $this->settings = $settings;
         $this->metrics = $metrics;
         $this->coreConnector = $core;
         parent::__construct($logger);
@@ -57,12 +64,12 @@ class CallBatch extends Action
                     'trace' => $e->getTraceAsString(),
                 ];
             }
-            $this->metrics->add('calling_devices_counter', 1, [
+            if($this->settings->get('metrics'))  $this->metrics->add('calling_devices_counter', 1, [
                 (string)$request->getDevice()->getIp(),
                 (string)$request->getModule(),
                 (string)($error === null ? 'success' : 'failed')
             ]);
-            $this->metrics->add('calling_devices_duration', (microtime(true) - $time_start), [
+            if($this->settings->get('metrics')) $this->metrics->add('calling_devices_duration', (microtime(true) - $time_start), [
                 (string)$request->getDevice()->getIp(),
                 (string)$request->getModule(),
                 (string)($error === null ? 'success' : 'failed')

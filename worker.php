@@ -11,6 +11,8 @@ use Slim\Factory\ServerRequestCreatorFactory;
 use Spiral\RoadRunner\Worker;
 
 require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/app/env_init.php';
+
 
 // Instantiate PHP-DI ContainerBuilder
 $containerBuilder = new ContainerBuilder();

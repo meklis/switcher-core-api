@@ -58,6 +58,14 @@ abstract class Action
             return $this->action();
         } catch (DomainRecordNotFoundException $e) {
             throw new HttpNotFoundException($this->request, $e->getMessage());
+        } catch (\Throwable $e) {
+            $this->logger->error($e->getMessage(), ['file' => $e->getFile() . ":" . $e->getLine()]);
+            $this->logger->error("File: " . $e->getFile() . ":" . $e->getLine());
+            $this->logger->error("Code: " . $e->getCode());
+            foreach (explode("\n", $e->getTraceAsString()) as $line) {
+                $this->logger->info($line);
+            }
+            throw $e;
         }
     }
 

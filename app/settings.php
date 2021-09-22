@@ -14,13 +14,14 @@ return function (ContainerBuilder $containerBuilder) {
             return new Settings([
                 'displayErrorDetails' => true, // Should be set to false in production
                 'displayTrace' => true,
-                'logError'            => false,
-                'logErrorDetails'     => false,
+                'logError'            => env('PRINT_ERRORS', false),
+                'logErrorDetails'     => env('PRINT_ERRORS', false),
                 'logger' => [
                     'name' => 'sw-core-api',
-                    'path' => 'php://stderr', //__DIR__ . '/../logs/app.log',
+                    'path' => __DIR__ . '/../logs/sw-core-api.log',
                     'level' => Logger::DEBUG,
                 ],
+                'metrics' => env('ENABLE_METRICS', true),
             ]);
         }
     ]);

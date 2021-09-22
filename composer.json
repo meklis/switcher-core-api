@@ -13,7 +13,8 @@
         "slim/slim": "^4.7",
         "spiral/goridge": "3.2.x-dev",
         "spiral/roadrunner": "v2.4.1",
-        "spiral/roadrunner-metrics": "2.1.x-dev"
+        "spiral/roadrunner-metrics": "2.1.x-dev",
+        "vlucas/phpdotenv": "5.4.x-dev"
     },
     "config": {
         "process-timeout": 0,

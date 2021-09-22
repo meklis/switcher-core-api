@@ -3,9 +3,8 @@
 namespace App\Application\Actions\SwitcherCore;
 
 use App\Application\Actions\Action;
-use App\Domain\DomainException\DomainRecordNotFoundException;
+use App\Application\Settings\SettingsInterface;
 use App\Infrastructure\Request;
-use http\Exception\InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Log\LoggerInterface;
 use Slim\Exception\HttpBadRequestException;
@@ -25,8 +24,14 @@ class Call extends Action
      */
     protected $metrics;
 
-    function __construct(Metrics $metrics, CoreConnector $core, LoggerInterface $logger)
+    /**
+     * @var SettingsInterface
+     */
+    protected $settings;
+
+    function __construct(SettingsInterface $settings, Metrics $metrics, CoreConnector $core, LoggerInterface $logger)
     {
+        $this->settings = $settings;
         $this->metrics = $metrics;
         $this->coreConnector = $core;
         parent::__construct($logger);
@@ -48,12 +53,12 @@ class Call extends Action
             $error = $e;
         }
 
-        $this->metrics->add('calling_devices_counter', 1, [
+        if($this->settings->get('metrics')) $this->metrics->add('calling_devices_counter', 1, [
              (string)$request->getDevice()->getIp(),
              (string)$request->getModule(),
              (string)($error === null ? 'success' : 'failed')
         ]);
-        $this->metrics->add('calling_devices_duration', (microtime(true) - $time_start), [
+        if($this->settings->get('metrics')) $this->metrics->add('calling_devices_duration', (microtime(true) - $time_start), [
             (string)$request->getDevice()->getIp(),
             (string)$request->getModule(),
             (string)($error === null ? 'success' : 'failed')
