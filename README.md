@@ -19,8 +19,8 @@ services:
   switcher-core-api:
     image: meklis/switcher-core-api
     ports:
-      - 8080:5990 # HTTP RestAPI port 
-      - 2112:2112 # prometheus metrics 
+      - 5990:5990 # HTTP RestAPI port 
+      - 127.0.0.1:2112:2112 # prometheus metrics 
     volumes:
       - ./logs:/app/logs
 
