@@ -35,7 +35,7 @@ class Modules extends Action
     protected function action(): Response
     {
         $modules = [];
-        foreach ($this->moduleCollector->getAll() as $moduleName=>$module) {
+        foreach ($this->moduleCollector->getAll() as $module) {
             /**
              * @var $module Module
              */
