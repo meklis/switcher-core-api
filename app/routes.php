@@ -20,6 +20,7 @@ return function (App $app) {
     $app->get('/rr/workers', \App\Application\Actions\RR\Workers::class );
     $app->delete('/rr/restart-all', \App\Application\Actions\RR\RestartAll::class );
     $app->get('/model/{key}', \App\Application\Actions\SwitcherCore\ModelByKey::class);
+    $app->get('/modules', \App\Application\Actions\SwitcherCore\Modules::class);
     $app->post('/detect', \App\Application\Actions\SwitcherCore\DetectModel::class);
     $app->post('/call', \App\Application\Actions\SwitcherCore\Call::class );
     $app->post('/call-batch', \App\Application\Actions\SwitcherCore\CallBatch::class);

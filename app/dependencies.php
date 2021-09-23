@@ -12,12 +12,16 @@ use Spiral\Goridge;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
-        SwitcherCore\Config\ModelCollector::class => function(ContainerInterface $c) {
-            return \SwitcherCore\Config\ModelCollector::init(
-                new \SwitcherCore\Config\Reader(
-                    \SwitcherCore\Modules\Helper::getBuildInConfig()
-                )
+        \SwitcherCore\Config\Reader::class => function(ContainerInterface $c) {
+            return new \SwitcherCore\Config\Reader(
+                \SwitcherCore\Modules\Helper::getBuildInConfig()
             );
+        },
+        SwitcherCore\Config\ModelCollector::class => function(ContainerInterface $c) {
+            return \SwitcherCore\Config\ModelCollector::init($c->get(\SwitcherCore\Config\Reader::class));
+        },
+        SwitcherCore\Config\ModuleCollector::class => function(ContainerInterface $c) {
+            return \SwitcherCore\Config\ModuleCollector::init($c->get(\SwitcherCore\Config\Reader::class));
         },
         Goridge\RPC\RPC::class => function(ContainerInterface $c) {
             return new Goridge\RPC\RPC(

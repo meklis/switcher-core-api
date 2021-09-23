@@ -41,7 +41,7 @@ class DetectModel extends Action
             $dt['ip'],
             $dt['community'],
             $dt['login'],
-            $dt['password'],
+            $dt['password']
         );
 
         return  $this->respondWithData(
