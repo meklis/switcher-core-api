@@ -39,7 +39,7 @@ class Modules extends Action
             /**
              * @var $module Module
              */
-            $modules[$moduleName] = [
+            $modules[] = [
               'name' => $module->getName(),
               'arguments' => $module->getArguments(),
               'description' => $module->getDescr(),
